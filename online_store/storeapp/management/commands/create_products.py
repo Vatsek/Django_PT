@@ -8,8 +8,12 @@ import random
 class Command(BaseCommand):
     help = 'create products'
 
+    def add_arguments(self, parser):
+        parser.add_argument('count', type=int, help='Count of products')
+
     def handle(self, *args, **kwargs):
-        for i in range(10):
+        count = kwargs.get('count')
+        for i in range(1, count+1):
             product = Product(
             title = f'Product {i}',
             description = f'Description product {i}',
