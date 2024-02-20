@@ -23,6 +23,8 @@ class Order(models.Model):
     total_amount = models.DecimalField(max_digits=7, decimal_places=2)
     date_order = models.DateField(auto_now_add=True)
 
+    def get_products(self):
+        return self.products.all()
 
 
 
