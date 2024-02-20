@@ -19,15 +19,13 @@ def get_orders_by_id(request, client_id):
 
 def get_client_purchased_products(request, client_id):
     def get_product_from_order(orders):
-            products_lst = []
+            products_set = set()
             if orders:
                 for order in orders:
-                    products = order.get_products()
-                    for product in products:
-                        products_lst.append(product)
+                    products_set.update(order.get_products())
             else:
-                products_lst.append('Заказы отсутствуют')
-            return set(products_lst)
+                products_set.add('Заказы отсутствуют')
+            return products_set 
 
     last_week_orders = Order.objects.filter(client=client_id, date_order__gte=date.today() - timedelta(days=7))
     last_month_orders = Order.objects.filter(client=client_id, date_order__gte=date.today() - timedelta(days=30))
