@@ -1,7 +1,7 @@
 from datetime import timedelta, date
-
-from django.shortcuts import render
-from .models import Order
+from django.shortcuts import render, redirect
+from .models import Order, Product
+from .forms import ProductUpdateForm
 
 
 def index(request):
@@ -39,3 +39,36 @@ def get_client_purchased_products(request, client_id):
                   {'week_prod': last_week_products,
                             'month_prod': last_month_products,
                             'year_prod': last_year_products})
+
+
+# def product_update_form(request):
+#     if request.method == 'POST':
+#         form = ProductUpdateForm(request.POST)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             form = ProductUpdateForm(instance=Product.objects.first())
+#             # Product.objects.create(title=data['title'],
+#             #                         description=data['description'],
+#             #                         price=data['price'],
+#             #                         quantity_of_product=data['quantity_of_product'])
+#             return redirect('product_update_form')
+#     else:
+#         form = ProductUpdateForm()
+#     return render(request, 'storeapp/product_update_form.html', {'form': form})
+
+
+def product_update_form(request, product_id):
+    if request.method == 'POST':
+        form = ProductUpdateForm(request.POST)
+        if form.is_valid():
+            product = Product.objects.get(pk=product_id)
+            product.title = form.cleaned_data['title']
+            product.description = form.cleaned_data['description']
+            product.price = form.cleaned_data['price']
+            product.quantity_of_product = form.cleaned_data['quantity_of_product']
+            product.save()
+            return redirect('product_update_form', product_id)
+    else:
+        form = ProductUpdateForm(instance=Product.objects.get(pk=product_id))
+    return render(request, 'storeapp/product_update_form.html', {'form': form})
+
