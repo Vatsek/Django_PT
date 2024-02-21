@@ -15,6 +15,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     quantity_of_product = models.IntegerField()
     date_product_add = models.DateField(auto_now_add=True)
+    image = models.ImageField(upload_to='images', blank=True)
 
 
 class Order(models.Model):
@@ -25,6 +26,3 @@ class Order(models.Model):
 
     def get_products(self):
         return self.products.all()
-
-
-

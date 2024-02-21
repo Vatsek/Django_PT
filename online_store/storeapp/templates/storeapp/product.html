@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+{% for p in product %}
+    <p>Название: {{ p.title }}</p>
+    <p>Описание: {{ p.description }}</p>
+    <p>Стоимость: {{ p.price }}</p>
+    <p>Остаток на складе: {{ p.quantity_of_product }}</p>
+    {% if p.image and p.image != 'False' %}
+        <img src="{{ p.image.url }}" width="140">
+    {% endif %}
+{% endfor %}
+{% endblock %}
