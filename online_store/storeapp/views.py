@@ -49,12 +49,6 @@ def new_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            # product = Product.objects.get(pk=product_id)
-            # product.title = form.cleaned_data['title']
-            # product.description = form.cleaned_data['description']
-            # product.price = form.cleaned_data['price']
-            # product.quantity_of_product = form.cleaned_data['quantity_of_product']
-            # product.image = form.cleaned_data['image']
             form.save()
             return redirect('add_product_form')
     else:
