@@ -13,5 +13,5 @@ urlpatterns = [
     path('products/product_update_form/<int:product_id>', views.product_update_form, name='product_update_form')
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
